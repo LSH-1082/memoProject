@@ -11,6 +11,8 @@ const Register = () => {
     const [password, setPassword] = useState("");
     const [check, setCheck] = useState("");
 
+    //todo cryptojs 를 이용해서 패스워드 서버로 주기(로그인에서도 해야함)
+    //todo 띄어쓰기가 들어갔을 때 판별하는 기능 추가(로그인에서도 해야함)
     const registerSubmit = async (e) => {
         e.preventDefault();
         try{
@@ -19,7 +21,8 @@ const Register = () => {
                 name: name,
                 password: password
             });
-            console.log(res.data);
+            if(res.data === "Already exists email") alert("이미 동일한 이메일의 계정이 존재합니다.");
+            if(res.data === "Not fill") alert("필수 입력란을 모두 입력하세요!");
         }
         catch(err){
             console.error(err);

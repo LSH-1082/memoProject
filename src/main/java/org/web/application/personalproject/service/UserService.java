@@ -20,17 +20,17 @@ public class UserService {
     }
 
     public String login(UserDTO dto) {
-        if(!existCheckEmail(dto)) return "이메일이 존재하지 않음";
+        if(!existCheckEmail(dto)) return "Login failed";
             //password 만 가져와서 비교하면 되는거잖아 차피 아이디는 존재하는지 if 문에서 체크 했으니까
         String checkPass = userRepository.findPassword(userRepository.findIdx(dto.getEmail()));
-        if(checkPass.equals(dto.getPassword())) return "success";
-        else return "fail";
+        if(checkPass.equals(dto.getPassword())) return "Login success";
+        else return "Login failed";
     }
 
     public String register(UserDTO dto) {
         //todo 이메일 맨 앞부분이나 중간에 띄어쓰기 있으면 판별 못함 해결 해야함
-        if(dto.getPassword().isEmpty() || dto.getName().isEmpty() || dto.getEmail().isEmpty()) return "필수 입력란을 모두 입력하세요!";
-        if(existCheckEmail(dto)) return "이미 동일한 이메일의 계정이 존재합니다";
+        if(dto.getPassword().isEmpty() || dto.getName().isEmpty() || dto.getEmail().isEmpty()) return "Not fill";
+        if(existCheckEmail(dto)) return "Already exists email";
         UserEntity entity = UserEntity.builder()
                 .email(dto.getEmail())
                 .name(dto.getName())
@@ -41,6 +41,6 @@ public class UserService {
                 .modifyDate(LocalDateTime.now())
                 .build();
         userRepository.save(entity);
-        return "계정생성 완료";
+        return "Register success";
     }
 }

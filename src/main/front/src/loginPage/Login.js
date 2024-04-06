@@ -18,6 +18,7 @@ const Login = () => {
                 password: password
             });
             console.log(res.data);
+            if(res.data === "Login failed") alert("아이디 혹은 비밀번호가 올바르지 않습니다.");
         }
         catch(err){
             console.error(err);
