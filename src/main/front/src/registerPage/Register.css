@@ -1,0 +1,25 @@
+.register-form{
+    width: 450px;
+    margin-left: 1%;
+}
+
+.register-label {
+    margin-left: 4%;
+    display: block;
+    font-weight: bold;
+}
+
+.register-input {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.register-input input {
+    width: 88%;
+    padding: 7px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}

@@ -1,0 +1,130 @@
+body{
+    margin: 0;
+}
+
+.Body {
+    background: rgb(242, 241, 235);
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.login-form{
+    width: 450px;
+    margin-left: 1%;
+}
+
+.title {
+    margin-bottom: 25px;
+    text-align: center;
+    font-weight: normal;
+    font-size: 45px;
+}
+
+.email-label {
+    margin-left: 4%;
+    display: block;
+    font-weight: bold;
+}
+
+.email-input {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.email-input input {
+    width: 88%;
+    padding: 7px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+
+.password-input {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.password-input input {
+    width: 88%;
+    padding: 7px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+
+.password-group{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.password-label {
+    font-weight: bold;
+    margin-left: 4%;
+}
+
+.password-a {
+    margin-right: 4%;
+    text-decoration: none; /* 링크의 밑줄 제거 */
+    color: rgb(136, 171, 142); /* 기본 색상 상속 */
+    transition: color 0.3s ease;
+}
+
+.password-a:hover {
+    color: rgb(106, 134, 109); /* hover 상태일 때 색상도 상속 */
+}
+
+button {
+    margin-left: 7%;
+    width: 86%;
+    padding: 10px;
+    background-color: rgb(136, 171, 142);
+    color: #fff;
+    font-size: 15px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: rgb(106, 134, 109);
+}
+
+.register{
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.register label{
+    margin-left: 8%;
+    display: block;
+}
+
+.register a{
+    margin-right: 8%;
+    margin-left: 50px;
+    text-decoration: none; /* 링크의 밑줄 제거 */
+    color: rgb(136, 171, 142); /* 기본 색상 상속 */
+    transition: color 0.3s ease;
+}
+
+.register a:hover {
+    color: rgb(106, 134, 109); /* hover 상태일 때 색상도 상속 */
+}
