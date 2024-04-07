@@ -1,14 +1,15 @@
 import React, {useState} from 'react';
-import {useEffect} from "react";
 import axios from "axios";
 
 import './Login.css';
 import icon from '../logo/forest_icon.png'
+import {useNavigate} from "react-router-dom";
 
 const Login = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
     const loginSubmit = async (e) => {
         e.preventDefault();
@@ -17,8 +18,8 @@ const Login = () => {
                 email: email,
                 password: password
             });
-            console.log(res.data);
             if(res.data === "Login failed") alert("아이디 혹은 비밀번호가 올바르지 않습니다.");
+            if(res.data === "Login success") navigate("/main", {});
         }
         catch(err){
             console.error(err);
@@ -52,7 +53,7 @@ const Login = () => {
                     <input type="password" id="password" onChange={(e) => setPassword(e.target.value)}/>
                 </div>
 
-                <button type="submit">Login</button>
+                <button className="submitButton" type="submit">Login</button>
 
                 <div className="register">
                     <label htmlFor="register">Don't have an account?</label>

@@ -89,7 +89,7 @@ body{
     color: rgb(106, 134, 109); /* hover 상태일 때 색상도 상속 */
 }
 
-button {
+.submitButton {
     margin-left: 7%;
     width: 86%;
     padding: 10px;
@@ -102,7 +102,7 @@ button {
     transition: background-color 0.3s ease;
 }
 
-button:hover {
+.submitButton:hover {
     background-color: rgb(106, 134, 109);
 }
 

@@ -65,7 +65,7 @@ const Register = () => {
                     <input type="password" id="passwordCheck" name="passwordCheck" onChange={(e) => setCheck(e.target.value)}/>
                 </div>
 
-                <button type="submit">Register</button>
+                <button className="submitButton" type="submit">Register</button>
             </form>
         </div>
     );
