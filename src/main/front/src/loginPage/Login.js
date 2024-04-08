@@ -1,27 +1,37 @@
-import React, {useState} from 'react';
-import axios from "axios";
+import React, {useEffect, useState} from 'react';
 
 import './Login.css';
 import icon from '../logo/forest_icon.png'
 import {useNavigate} from "react-router-dom";
+import {login} from "../apis/Auth";
 
 const Login = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
+    const localValue = localStorage.getItem("Email");
+
+    useEffect(() => {
+        if(localValue !== null) navigate("/main");
+    }, []);
+
 
     const loginSubmit = async (e) => {
         e.preventDefault();
-        try{
-            const res = await axios.post('http://localhost:8080/api/login', {
+        try {
+            const res = await login({
                 email: email,
                 password: password
             });
-            if(res.data === "Login failed") alert("아이디 혹은 비밀번호가 올바르지 않습니다.");
-            if(res.data === "Login success") navigate("/main", {});
-        }
-        catch(err){
+            if (res.data === "Login failed") {
+                alert("아이디 혹은 비밀번호가 올바르지 않습니다.");
+            }
+            if (res.data === "Login success") {
+                localStorage.setItem("Email", email);
+                navigate("/main");
+            }
+        } catch (err) {
             console.error(err);
         }
     };
@@ -41,7 +51,7 @@ const Login = () => {
                 <label className="email-label" htmlFor="email">Email</label>
 
                 <div className="email-input">
-                    <input type="text" id="email" onChange={(e) =>  setEmail(e.target.value)}/>
+                    <input type="text" id="email" onChange={(e) => setEmail(e.target.value)}/>
                 </div>
 
                 <div className="password-group">

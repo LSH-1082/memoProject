@@ -3,9 +3,10 @@ import axios from "axios";
 
 import icon from '../logo/forest_icon.png'
 import './Register.css'
+import {useNavigate} from "react-router-dom";
 
 const Register = () => {
-
+    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
@@ -15,19 +16,21 @@ const Register = () => {
     //todo 띄어쓰기가 들어갔을 때 판별하는 기능 추가(로그인에서도 해야함)
     const registerSubmit = async (e) => {
         e.preventDefault();
-        try{
-            const res = await axios.post('http://localhost:8080/api/register', {
-                email: email,
-                name: name,
-                password: password
-            });
+        axios.post("http://localhost:8080/user/register", {
+            email: email,
+            name: name,
+            password: password
+        })
+            .then((res) => {
             if(res.data === "Already exists email") alert("이미 동일한 이메일의 계정이 존재합니다.");
             if(res.data === "Not fill") alert("필수 입력란을 모두 입력하세요!");
-        }
-        catch(err){
-            console.error(err);
-        }
-    };
+            if(res.data === "Register success") {
+                alert("계정생성 완료");
+                navigate("/");
+            }
+        })
+    }
+
 
     return (
         <div className="Body">

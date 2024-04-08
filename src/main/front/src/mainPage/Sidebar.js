@@ -4,7 +4,7 @@ const {Link} = require("react-router-dom");
 const Login = require("../loginPage/Login");
 const React = require("react");
 const Sidebar = (props) => {
-    const [page, setPage] = useState();
+    const [page, setPage] = useState([]);
 
     const sendStatus = (status) => {
         props.getStatus(status);

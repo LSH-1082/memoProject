@@ -1,8 +1,11 @@
 package org.web.application.personalproject.service;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.web.application.personalproject.dto.UserDTO;
 import org.web.application.personalproject.entity.UserEntity;
 import org.web.application.personalproject.repository.UserRepository;
@@ -11,20 +14,21 @@ import java.time.LocalDateTime;
 
 @Slf4j
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
     public boolean existCheckEmail(UserDTO dto){
-        return userRepository.existEmail(dto.getEmail());
+        return userRepository.existsByEmail(dto.getEmail());
     }
 
     public String login(UserDTO dto) {
         if(!existCheckEmail(dto)) return "Login failed";
             //password 만 가져와서 비교하면 되는거잖아 차피 아이디는 존재하는지 if 문에서 체크 했으니까
-        String checkPass = userRepository.findPassword(userRepository.findIdx(dto.getEmail()));
-        if(checkPass.equals(dto.getPassword())) return "Login success";
-        else return "Login failed";
+        UserEntity entity = userRepository.findByEmail(dto.getEmail());
+        if(entity.getPassword().equals(dto.getPassword())) return "Login success";
+        return "Login failed";
     }
 
     public String register(UserDTO dto) {
@@ -42,5 +46,20 @@ public class UserService {
                 .build();
         userRepository.save(entity);
         return "Register success";
+    }
+
+    public UserDTO getUserInfo(UserDTO dto){
+        UserEntity entity = userRepository.findByEmail(dto.getEmail());
+        return UserDTO.builder()
+                .email(entity.getEmail())
+                .name(entity.getName())
+                .img(entity.getImg())
+                .build();
+    }
+
+    public String delete(UserDTO dto){
+        if(userRepository.findByEmail(dto.getEmail()) != null) return "Delete failed";
+        if(userRepository.deleteByEmail(dto.getEmail())) return "Delete success";
+        else return "Delete failed";
     }
 }
