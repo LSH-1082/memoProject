@@ -12,7 +12,8 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "users")
 public class UserEntity {
@@ -39,7 +40,7 @@ public class UserEntity {
     private LocalDateTime modifyDate;
 
 
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.REMOVE)
     private List<CategoryEntity> categories = new ArrayList<>();
 
     public  void addCategory(CategoryEntity categoryEntity){

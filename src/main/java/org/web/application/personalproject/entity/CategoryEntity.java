@@ -3,6 +3,7 @@ package org.web.application.personalproject.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,8 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "category")
 public class CategoryEntity {
@@ -37,9 +39,12 @@ public class CategoryEntity {
     @Column(nullable = false)
     private LocalDateTime modifyDate;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "page_idx")
-    private PageEntity pageIdx;
+    @OneToMany(mappedBy = "categoryIdx", cascade = CascadeType.REMOVE)
+    private List<PageEntity> pages = new ArrayList<>();
+
+    public void addPage(PageEntity pageEntity){
+        pages.add(pageEntity);
+    }
 
     @OneToMany(mappedBy = "categoryIdx", cascade = CascadeType.PERSIST)
     private List<MessageEntity> messages = new ArrayList<>();

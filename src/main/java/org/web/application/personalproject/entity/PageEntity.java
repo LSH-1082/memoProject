@@ -34,10 +34,7 @@ public class PageEntity {
     @Column(nullable = false)
     private LocalDateTime modifyDate;
 
-    @OneToMany(mappedBy = "pageIdx", cascade = CascadeType.PERSIST)
-    private List<CategoryEntity> categories = new ArrayList<>();
-
-    public  void addCategory(CategoryEntity categoryEntity){
-        categories.add(categoryEntity);
-    }
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "category_idx")
+    private CategoryEntity categoryIdx;
 }

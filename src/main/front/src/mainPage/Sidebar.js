@@ -1,14 +1,34 @@
 import {useState} from "react";
 
-const {Link} = require("react-router-dom");
-const Login = require("../loginPage/Login");
 const React = require("react");
 const Sidebar = (props) => {
     const [page, setPage] = useState([]);
+    const [category, setCategory] = useState([])
 
-    const sendStatus = (status) => {
-        props.getStatus(status);
+    const sendStatus = (status, num) => {
+        props.getStatus(status, num);
     }
+
+
+    const categoryButtonClick = (num) => {
+        sendStatus("category" + num, num);
+    }
+
+
+
+    const generateCategoryButtons = () => {
+        const buttons = [];
+        for (let i = 0; i < props.category.length; i++) {
+            buttons.push(
+                <li key={i}>
+                    <button className="categoryButton" onClick={() => {categoryButtonClick(i)}}>
+                        <img src={require("../defaultImg/DefaultCategoryImg.png")} alt="Category"/>
+                    </button>
+                </li>
+            );
+        }
+        return buttons;
+    };
 
     return (
         <div className="sidebar">
@@ -21,16 +41,12 @@ const Sidebar = (props) => {
 
                 <div className="categoryItem">
                     <ul>
-                        <li>
-                            <button className="categoryButton" onClick={() => sendStatus("category")}>
-                                <img src={require("../defaultImg/DefaultCategoryImg.png")}/>
-                            </button>
-                        </li>
+                        {generateCategoryButtons()}
                     </ul>
                 </div>
             </nav>
             <div className="categoryAdd">
-                <button className="categoryAddButton">
+                <button className="categoryAddButton" onClick={() => sendStatus("addCategory")}>
                     <img src={require("../defaultImg/DefaultCategorySelectImg.png")}/>
                 </button>
             </div>

@@ -1,7 +1,5 @@
 package org.web.application.personalproject.service;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -14,7 +12,6 @@ import java.time.LocalDateTime;
 
 @Slf4j
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class UserService {
 
@@ -49,17 +46,23 @@ public class UserService {
     }
 
     public UserDTO getUserInfo(UserDTO dto){
-        UserEntity entity = userRepository.findByEmail(dto.getEmail());
-        return UserDTO.builder()
-                .email(entity.getEmail())
-                .name(entity.getName())
-                .img(entity.getImg())
-                .build();
+        try{
+            UserEntity entity = userRepository.findByEmail(dto.getEmail());
+            return UserDTO.builder()
+                    .email(entity.getEmail())
+                    .name(entity.getName())
+                    .img(entity.getImg())
+                    .build();
+        }
+        catch(Exception e){
+            return null;
+        }
     }
 
+    @Transactional
     public String delete(UserDTO dto){
-        if(userRepository.findByEmail(dto.getEmail()) != null) return "Delete failed";
-        if(userRepository.deleteByEmail(dto.getEmail())) return "Delete success";
+        if(userRepository.findByEmail(dto.getEmail()) == null) return "Delete failed";
+        if(userRepository.deleteByEmail(dto.getEmail()) != null) return "Delete success";
         else return "Delete failed";
     }
 }

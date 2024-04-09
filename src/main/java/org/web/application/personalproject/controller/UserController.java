@@ -7,33 +7,37 @@ import org.web.application.personalproject.service.UserService;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/user")
 @CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("/user/login")
+    @GetMapping("/login")
     public String Login() {
         return "Login GET";
     }
 
     //Todo: spring security 추가
-    @PostMapping("/user/login")
+    @PostMapping("/login")
     public String Login(@RequestBody UserDTO user) {
         return userService.login(user);
     }
 
-    @PostMapping("/user/register")
+    @PostMapping("/register")
     public String Register(@RequestBody UserDTO user){
         return userService.register(user);
     }
 
-    @PostMapping("/user/info")
+    @PostMapping("/info")
     public UserDTO userInfo(@RequestBody UserDTO dto){
+        if(userService.getUserInfo(dto) == null){
+            return null;
+        }
         return userService.getUserInfo(dto);
     }
 
-    @PostMapping("/user/delete")
+    @PostMapping("/delete")
     public String userDelete(@RequestBody UserDTO dto){
         return userService.delete(dto);
     }

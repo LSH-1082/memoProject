@@ -9,7 +9,7 @@
 }
 
 .sidebar nav{
-    padding-bottom: 80vh;
+    padding-bottom: 50px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -64,6 +64,7 @@
 
 .categoryAdd{
     padding-left: 8px;
+    display: block;
 }
 
 .categoryAddButton{
@@ -75,6 +76,9 @@
     transition: none;
 }
 
+nav{
+    display: flex;
+}
 
 img {
     width: 60px;
