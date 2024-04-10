@@ -1,17 +1,23 @@
 import {useState} from "react";
+import axios from "axios";
 
 const React = require("react");
 const Sidebar = (props) => {
-    const [page, setPage] = useState([]);
-    const [category, setCategory] = useState([])
+    let page = [];
 
-    const sendStatus = (status, num) => {
-        props.getStatus(status, num);
+    const sendStatus = (status, num, page) => {
+        props.getStatus(status, num, page);
     }
 
 
     const categoryButtonClick = (num) => {
-        sendStatus("category" + num, num);
+        let time = props.category.at(num).create_date;
+        axios.post("http://localhost:8080/page/info", {
+            create_date: time
+        }).then((res) => {
+            page = res.data;
+            sendStatus("category" + num, num, page);
+        });
     }
 
 

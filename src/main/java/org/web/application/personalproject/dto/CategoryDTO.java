@@ -4,6 +4,7 @@ import lombok.*;
 import org.web.application.personalproject.entity.UserEntity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Builder
 @Getter
@@ -16,4 +17,5 @@ public class CategoryDTO {
     private LocalDateTime create_date;
     private LocalDateTime modify_date;
     private UserEntity owner;
+    private List<PageDTO> pages;
 }

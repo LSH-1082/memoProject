@@ -13,4 +13,6 @@ import java.util.List;
 public interface CategoryRepository extends JpaRepository<CategoryEntity, Long> {
     List<CategoryEntity> findByOwner(UserEntity owner);
     Integer deleteByCreateDate(LocalDateTime time);
+
+    CategoryEntity findByCreateDate(LocalDateTime time);
 }

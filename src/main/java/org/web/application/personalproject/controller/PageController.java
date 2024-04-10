@@ -1,20 +1,22 @@
 package org.web.application.personalproject.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.web.application.personalproject.dto.UserDTO;
+import org.springframework.web.bind.annotation.*;
+import org.web.application.personalproject.dto.CategoryDTO;
+import org.web.application.personalproject.dto.PageDTO;
+import org.web.application.personalproject.service.PageService;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping("/page")
 public class PageController {
+    private final PageService pageService;
 
-    @GetMapping("/page/main")
-    public String Page(@RequestBody UserDTO dto) {
-
-        return "Page GET";
+    @PostMapping("/info")
+    public List<PageDTO> getPageInfo(@RequestBody CategoryDTO dto) {
+        return pageService.getPageInfo(dto);
     }
 }

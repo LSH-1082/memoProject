@@ -39,7 +39,7 @@ public class CategoryEntity {
     @Column(nullable = false)
     private LocalDateTime modifyDate;
 
-    @OneToMany(mappedBy = "categoryIdx", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "categoryIdx", cascade = CascadeType.ALL)
     private List<PageEntity> pages = new ArrayList<>();
 
     public void addPage(PageEntity pageEntity){

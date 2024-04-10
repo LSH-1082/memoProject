@@ -119,3 +119,7 @@
 .applyButton button:hover {
     background-color: rgb(106, 134, 109); /* hover 상태일 때 색상도 상속 */
 }
+
+.pageDiv{
+    height: 80vh;
+}

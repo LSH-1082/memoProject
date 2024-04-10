@@ -6,6 +6,7 @@ import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.web.application.personalproject.dto.CategoryDTO;
+import org.web.application.personalproject.dto.PageDTO;
 import org.web.application.personalproject.dto.UserDTO;
 import org.web.application.personalproject.entity.CategoryEntity;
 import org.web.application.personalproject.entity.PageEntity;
@@ -29,14 +30,15 @@ public class CategoryService {
 
     public List<CategoryDTO> findCategoryByOwner(UserDTO userDTO){
         UserEntity userEntity = userRepository.findByEmail(userDTO.getEmail());
-        List<CategoryEntity> categoryEntities = categoryRepository.findByOwner(userEntity);
+        List<CategoryEntity> categoryEntityList = categoryRepository.findByOwner(userEntity);
         List<CategoryDTO> categoryDTOList = new ArrayList<>();
 
-        for (CategoryEntity categoryEntity : categoryEntities) {
+        for (CategoryEntity categoryEntity : categoryEntityList) {
             CategoryDTO categoryDTO = new CategoryDTO();
             categoryDTO.setCategoryName(categoryEntity.getCategoryName());
             categoryDTO.setCreate_date(categoryEntity.getCreateDate());
             categoryDTO.setModify_date(categoryEntity.getModifyDate());
+
             categoryDTOList.add(categoryDTO);
         }
         return categoryDTOList;

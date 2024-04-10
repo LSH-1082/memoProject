@@ -1,19 +1,21 @@
 import "./Infobar.css";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 
 const Infobar = (props) => {
     const navigate = useNavigate();
     const [addCategoryName, setaddCategoryName] = useState("");
     const [category, setCategory] = useState([]);
+    const [page, setPage] = useState([]);
 
     useEffect(() => {
-        if(props.category.length > 0){
+        if(props.category.length > 0 && props.page.length > 0){
             setCategory(props.category);
-            console.log(props.category);
+            setPage(props.page);
         }
-    }, [props.category]);
+    }, [props.category, props.page]);
+
 
     const logout = () => {
         if (window.confirm("로그아웃 하시겠습니까?")) {
@@ -62,6 +64,22 @@ const Infobar = (props) => {
         })
     }
 
+    const generatePageButtons = () => {
+        const buttons = [];
+        for (let i = 0; i < page.length; i++) {
+            buttons.push(
+                <li key={i}>
+                    <button className="pageButton" onClick={() => {pageButtonClick()}}>{props.page.at(i).pageName}</button>
+                </li>
+            );
+        }
+        return buttons;
+    };
+
+    const pageButtonClick = () => {
+        console.log("Click");
+    }
+
     return (
         <>
             {props.status === "profile" ? (
@@ -97,7 +115,13 @@ const Infobar = (props) => {
                             <button type="submit">X</button>
                         </form>
                     </div>
-                    <div>
+                    <div className="pageDiv">
+                        <ul>
+                            {generatePageButtons()}
+                        </ul>
+                        <div>
+                            <button className="addPage">+</button>
+                        </div>
                     </div>
                 </div>
             ) : (

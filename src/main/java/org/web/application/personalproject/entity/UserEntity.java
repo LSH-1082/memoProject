@@ -40,7 +40,7 @@ public class UserEntity {
     private LocalDateTime modifyDate;
 
 
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     private List<CategoryEntity> categories = new ArrayList<>();
 
     public  void addCategory(CategoryEntity categoryEntity){

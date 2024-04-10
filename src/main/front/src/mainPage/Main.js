@@ -13,7 +13,7 @@ const Main = (props) => {
     const [userInfo, setUserInfo] = useState([]);
     const [category, setCategory] = useState([]);
     const [mNum, setMNum] = useState(0);
-
+    const [page, setPage] = useState([]);
 
 
     useEffect(() => {
@@ -45,17 +45,17 @@ const Main = (props) => {
         });
     }, []);
 
-    const getStatus = (status, num) => {
+    const getStatus = (status, num, page) => {
         if (stat !== status) setStat(status);
         if (stat === status) setStat("");
-        setMNum(num)
+        setMNum(num);
+        setPage(page);
     }
 
-    //메인 페이지 들어왔을 떄 바로 GET요청 한 후
     return (
         <>
             <Sidebar category={category} status={stat} getStatus={getStatus}/>
-            <Infobar mNum={mNum} category={category} userInfo={userInfo} status={stat}/>
+            <Infobar page={page} mNum={mNum} category={category} userInfo={userInfo} status={stat}/>
         </>
     );
 }
