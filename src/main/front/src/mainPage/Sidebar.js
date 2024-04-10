@@ -27,7 +27,7 @@ const Sidebar = (props) => {
         for (let i = 0; i < props.category.length; i++) {
             buttons.push(
                 <li key={i}>
-                    <button className="categoryButton" onClick={() => {categoryButtonClick(i)}}>
+                    <button className="categoryButton" data-tooltip={props.category.at(i).categoryName} onClick={() => {categoryButtonClick(i)}}>
                         <img src={require("../defaultImg/DefaultCategoryImg.png")} alt="Category"/>
                     </button>
                 </li>
@@ -40,7 +40,7 @@ const Sidebar = (props) => {
         <div className="sidebar">
             <nav>
                 <div className="userImg">
-                    <button className="profileButton" onClick={() => sendStatus("profile")}>
+                    <button className="profileButton" data-tooltip="Profile" onClick={() => sendStatus("profile")}>
                         <img src={require('../defaultImg/DefaultUserImg.png')} alt="대체 텍스트"/>
                     </button>
                 </div>
@@ -52,9 +52,7 @@ const Sidebar = (props) => {
                 </div>
             </nav>
             <div className="categoryAdd">
-                <button className="categoryAddButton" onClick={() => sendStatus("addCategory")}>
-                    <img src={require("../defaultImg/DefaultCategorySelectImg.png")}/>
-                </button>
+                <button className="categoryAddButton" onClick={() => sendStatus("addCategory")}>+</button>
             </div>
         </div>
     );
