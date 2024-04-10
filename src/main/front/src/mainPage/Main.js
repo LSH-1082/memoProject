@@ -56,6 +56,7 @@ const Main = (props) => {
         if (stat === status) setStat("");
         setMNum(num);
         setPage(page);
+        setPageStatus("");
     }
 
     const getPageStatus = (pageName, pageContent, pageStatus) => {

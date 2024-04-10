@@ -1,7 +1,7 @@
 import "./Infobar.css";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
 const Infobar = (props) => {
     const navigate = useNavigate();
@@ -11,6 +11,10 @@ const Infobar = (props) => {
     const sendPageStatus = (pageName, content, time) => {
         props.getPageStatus(pageName, content, time);
     }
+
+    useEffect(() => {
+        setStatus(props.status);
+    }, [props.status]);
 
     const logout = () => {
         if (window.confirm("로그아웃 하시겠습니까?")) {
@@ -175,7 +179,6 @@ const Infobar = (props) => {
                             <input type="text" value={name} onChange={nameEvent}/>
                         </div>
                         <div className="applyButton">
-                            <button onClick={() => setStatus("")}>X</button>
                             <button type="submit">Apply</button>
                         </div>
                     </div>
