@@ -5,8 +5,7 @@ import React, {useState} from "react";
 
 const Infobar = (props) => {
     const navigate = useNavigate();
-    const [addCategoryName, setAddCategoryName] = useState("");
-    const [pageName, setPageName] = useState("");
+    const [name, setName] = useState("Input Name Here");
     const [status, setStatus] = useState("");
 
     const sendPageStatus = (pageName, content, time) => {
@@ -40,22 +39,22 @@ const Infobar = (props) => {
                     }
                 });
         }
-
     }
 
-    const categoryDelete = () => {
+    const categoryDelete = (e) => {
         if (window.confirm("카테고리를 삭제하시겠습니까?")) {
             let time = props.category.at(props.mNum).create_date;
             axios.post("http://localhost:8080/category/delete", {
                 create_date: time
             });
         }
+        else e.preventDefault();
     }
 
-    const addCategory = (e) => {
+    const addCategory = () => {
         let email = localStorage.getItem("Email");
         axios.post('http://localhost:8080/category/add', {
-            categoryName: addCategoryName,
+            categoryName: name,
             email: email
         })
     }
@@ -64,14 +63,14 @@ const Infobar = (props) => {
         let time = props.category.at(props.mNum).create_date;
         axios.post("http://localhost:8080/page/add", {
             createDate: time,
-            pageName: pageName
+            pageName: name
         }).then((res) => {
             console.log(res.data);
         })
     }
 
     const deletePage = (time) => {
-        if(window.confirm("해당 페이지를 지우겠습니까?")){
+        if(window.confirm("해당 페이지를 삭제하시겠습니까?")){
             axios.post("http://localhost:8080/page/delete", {
                 createDate: time
             }).then(() => {
@@ -82,16 +81,21 @@ const Infobar = (props) => {
     }
 
 
+    const nameEvent = (e) => {
+        setName(e.target.value);
+    }
 
     const generatePageButtons = () => {
         const buttons = [];
         for (let i = 0; i < props.page.length; i++) {
             buttons.push(
                 <li key={i}>
-                    <button className="pageButton" onClick={() => {
-                        pageButtonClick(props.page.at(i).pageName, props.page.at(i).pageContent, props.page.at(i).createDate)
-                    }}>{props.page.at(i).pageName}</button>
-                    <button className="deleteButton" onClick={() => {deletePage(props.page.at(i).createDate)}}>X</button>
+                    <div className="pageButtonDiv">
+                        <button className="pageButton" onClick={() => {
+                            pageButtonClick(props.page.at(i).pageName, props.page.at(i).pageContent, props.page.at(i).createDate)
+                        }}>{props.page.at(i).pageName}</button>
+                        <button className="pageDeleteButton" onClick={() => {deletePage(props.page.at(i).createDate)}}>X</button>
+                    </div>
                 </li>
             );
         }
@@ -135,14 +139,14 @@ const Infobar = (props) => {
                     <div className="infoName">
                         <label>{props.category.at(props.mNum).categoryName}</label>
                         <form onSubmit={categoryDelete}>
-                            <button type="submit">X</button>
+                            <button className="categoryDeleteButton" type="submit">X</button>
                         </form>
                     </div>
                     <div className="pageDiv">
                         <ul>
                             {generatePageButtons()}
                         </ul>
-                        <div>
+                        <div className="addPageButton">
                             <button className="addPage" onClick={() => setStatus("addPage")}>+</button>
                         </div>
                     </div>
@@ -154,7 +158,7 @@ const Infobar = (props) => {
                 <form onSubmit={addCategory}>
                     <div className="infobar">
                         <div className="addCategoryName">
-                            <input type="text" onChange={(e) => setAddCategoryName(e.target.value)}/>
+                            <input type="text" value={name} onChange={nameEvent}/>
                         </div>
                         <div className="applyButton">
                             <button type="submit">Apply</button>
@@ -168,7 +172,7 @@ const Infobar = (props) => {
                 <form onSubmit={addPage}>
                     <div className="infobar">
                         <div className="addCategoryName">
-                            <input type="text" onChange={(e) => setPageName(e.target.value)}/>
+                            <input type="text" value={name} onChange={nameEvent}/>
                         </div>
                         <div className="applyButton">
                             <button onClick={() => setStatus("")}>X</button>

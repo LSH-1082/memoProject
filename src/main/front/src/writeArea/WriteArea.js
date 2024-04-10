@@ -20,14 +20,16 @@ const WriteArea = (props) => {
     }
 
     const saveContent = () => {
-        axios.post("http://localhost:8080/page/save", {
-            pageContent: content,
-            createDate: props.pageStatus,
-            pageName: pageName
-        }).then(() => {
-            alert("변경사항이 저장되었습니다");
-            window.location.reload();
-        })
+        if(window.confirm("내용을 저장하시겠습니까?")){
+            axios.post("http://localhost:8080/page/save", {
+                pageContent: content,
+                createDate: props.pageStatus,
+                pageName: pageName
+            }).then(() => {
+                alert("변경사항이 저장되었습니다");
+                window.location.reload();
+            })
+        }
     }
 
     return (
@@ -35,10 +37,9 @@ const WriteArea = (props) => {
             {props.pageStatus !== "" ? (
                 <div className="writeArea">
                     <div className="pageHeader">
-                        <input type="text" value={pageName} onChange={changePageName}></input>
+                        <input className="pageName" type="text" value={pageName} onChange={changePageName}></input>
                         <div className="buttons">
-                            <button onClick={saveContent}>Apply</button>
-                            <button>X</button>
+                            <button className="savePageButton" onClick={saveContent}>Save</button>
                         </div>
                     </div>
                     <textarea value={content} onChange={changeContent}></textarea>
