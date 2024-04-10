@@ -1,0 +1,10 @@
+.writeArea {
+    padding-left: 380px;
+}
+
+.pageHeader{
+    display: flex;
+    justify-content: space-between;
+    padding: 17px;
+    background-color: rgb(242, 241, 235);
+}

@@ -3,6 +3,8 @@ import axios from "axios";
 import "./Sidebar.css"
 import Sidebar from "./Sidebar";
 import Infobar from "../category/Infobar";
+import WriteArea from "../writeArea/WriteArea";
+
 import {useNavigate} from "react-router-dom";
 
 
@@ -14,6 +16,10 @@ const Main = (props) => {
     const [category, setCategory] = useState([]);
     const [mNum, setMNum] = useState(0);
     const [page, setPage] = useState([]);
+
+    const [pageStatus, setPageStatus] = useState("");
+    const [pageContent, setPageContent] = useState("");
+    const [pageName, setPageName] = useState("");
 
 
     useEffect(() => {
@@ -52,10 +58,17 @@ const Main = (props) => {
         setPage(page);
     }
 
+    const getPageStatus = (pageName, pageContent, pageStatus) => {
+        setPageStatus(pageStatus);
+        setPageContent(pageContent);
+        setPageName(pageName);
+    }
+
     return (
         <>
             <Sidebar category={category} status={stat} getStatus={getStatus}/>
-            <Infobar page={page} mNum={mNum} category={category} userInfo={userInfo} status={stat}/>
+            <Infobar page={page} mNum={mNum} category={category} userInfo={userInfo} status={stat} getPageStatus={getPageStatus}/>
+            <WriteArea pageName={pageName} pageStatus={pageStatus} pageContent={pageContent}/>
         </>
     );
 }

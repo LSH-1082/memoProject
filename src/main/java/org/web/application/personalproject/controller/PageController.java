@@ -19,4 +19,19 @@ public class PageController {
     public List<PageDTO> getPageInfo(@RequestBody CategoryDTO dto) {
         return pageService.getPageInfo(dto);
     }
+
+    @PostMapping("/add")
+    public boolean addPage(@RequestBody PageDTO dto) {
+        return pageService.addPage(dto);
+    }
+
+    @PostMapping("/delete")
+    public boolean deletePage(@RequestBody PageDTO dto) {
+        return pageService.deletePage(dto);
+    }
+
+    @PostMapping("/save")
+    public boolean savePage(@RequestBody PageDTO dto){
+        return pageService.savePage(dto);
+    }
 }

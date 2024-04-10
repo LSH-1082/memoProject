@@ -1,14 +1,17 @@
 import "./Infobar.css";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 
 const Infobar = (props) => {
     const navigate = useNavigate();
     const [addCategoryName, setAddCategoryName] = useState("");
-    const [category, setCategory] = useState([]);
-    const [page, setPage] = useState([]);
+    const [pageName, setPageName] = useState("");
+    const [status, setStatus] = useState("");
 
+    const sendPageStatus = (pageName, content, time) => {
+        props.getPageStatus(pageName, content, time);
+    }
 
     const logout = () => {
         if (window.confirm("로그아웃 하시겠습니까?")) {
@@ -42,7 +45,7 @@ const Infobar = (props) => {
 
     const categoryDelete = () => {
         if (window.confirm("카테고리를 삭제하시겠습니까?")) {
-            let time = category.at(props.mNum).create_date;
+            let time = props.category.at(props.mNum).create_date;
             axios.post("http://localhost:8080/category/delete", {
                 create_date: time
             });
@@ -57,14 +60,38 @@ const Infobar = (props) => {
         })
     }
 
+    const addPage = () => {
+        let time = props.category.at(props.mNum).create_date;
+        axios.post("http://localhost:8080/page/add", {
+            createDate: time,
+            pageName: pageName
+        }).then((res) => {
+            console.log(res.data);
+        })
+    }
+
+    const deletePage = (time) => {
+        if(window.confirm("해당 페이지를 지우겠습니까?")){
+            axios.post("http://localhost:8080/page/delete", {
+                createDate: time
+            }).then(() => {
+                alert("페이지가 삭제되었습니다");
+                window.location.reload();
+            });
+        }
+    }
+
+
+
     const generatePageButtons = () => {
         const buttons = [];
         for (let i = 0; i < props.page.length; i++) {
             buttons.push(
                 <li key={i}>
                     <button className="pageButton" onClick={() => {
-                        pageButtonClick()
+                        pageButtonClick(props.page.at(i).pageName, props.page.at(i).pageContent, props.page.at(i).createDate)
                     }}>{props.page.at(i).pageName}</button>
+                    <button className="deleteButton" onClick={() => {deletePage(props.page.at(i).createDate)}}>X</button>
                 </li>
             );
         }
@@ -72,8 +99,8 @@ const Infobar = (props) => {
         return buttons;
     };
 
-    const pageButtonClick = () => {
-        console.log("Click");
+    const pageButtonClick = (pageName, content, time) => {
+        sendPageStatus(pageName, content, time);
     }
 
     return (
@@ -116,7 +143,7 @@ const Infobar = (props) => {
                             {generatePageButtons()}
                         </ul>
                         <div>
-                            <button className="addPage">+</button>
+                            <button className="addPage" onClick={() => setStatus("addPage")}>+</button>
                         </div>
                     </div>
                 </div>
@@ -130,6 +157,21 @@ const Infobar = (props) => {
                             <input type="text" onChange={(e) => setAddCategoryName(e.target.value)}/>
                         </div>
                         <div className="applyButton">
+                            <button type="submit">Apply</button>
+                        </div>
+                    </div>
+                </form>
+            ) : (
+                <></>
+            )}
+            {status === "addPage" ? (
+                <form onSubmit={addPage}>
+                    <div className="infobar">
+                        <div className="addCategoryName">
+                            <input type="text" onChange={(e) => setPageName(e.target.value)}/>
+                        </div>
+                        <div className="applyButton">
+                            <button onClick={() => setStatus("")}>X</button>
                             <button type="submit">Apply</button>
                         </div>
                     </div>
