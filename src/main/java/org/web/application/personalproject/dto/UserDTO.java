@@ -15,4 +15,6 @@ public class UserDTO {
     private String img;
 
     private String password;
+
+    private String passwordCheck;
 }

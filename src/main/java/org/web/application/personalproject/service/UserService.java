@@ -1,9 +1,18 @@
 package org.web.application.personalproject.service;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.web.application.personalproject.dto.UserDTO;
 import org.web.application.personalproject.entity.UserEntity;
 import org.web.application.personalproject.repository.UserRepository;
@@ -16,47 +25,68 @@ import java.time.LocalDateTime;
 public class UserService {
 
     private final UserRepository userRepository;
+
+    private final PasswordEncoder passwordEncoder;
+
+    private final AuthenticationManager authenticationManager;
+
+
     public boolean existCheckEmail(UserDTO dto){
         return userRepository.existsByEmail(dto.getEmail());
     }
 
-    public String login(UserDTO dto) {
-        if(!existCheckEmail(dto)) return "Login failed";
-            //password 만 가져와서 비교하면 되는거잖아 차피 아이디는 존재하는지 if 문에서 체크 했으니까
-        UserEntity entity = userRepository.findByEmail(dto.getEmail());
-        if(entity.getPassword().equals(dto.getPassword())) return "Login success";
-        return "Login failed";
+    public String login(UserDTO dto, HttpServletRequest req) {
+        String username = dto.getEmail();
+        String password = dto.getPassword();
+
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
+
+        token.setDetails(new WebAuthenticationDetails(req));
+
+        Authentication auth = authenticationManager.authenticate(token);
+
+        log.info("인증 여부: " + auth.isAuthenticated());
+
+        User authUser = (User) auth.getPrincipal();
+
+        log.info("유저 정보: " + authUser.getUsername());
+
+        SecurityContextHolder.getContext().setAuthentication(auth);
+
+        return null;
     }
 
     public String register(UserDTO dto) {
-        //todo 이메일 맨 앞부분이나 중간에 띄어쓰기 있으면 판별 못함 해결 해야함
-        if(dto.getPassword().isEmpty() || dto.getName().isEmpty() || dto.getEmail().isEmpty()) return "Not fill";
-        if(existCheckEmail(dto)) return "Already exists email";
-        UserEntity entity = UserEntity.builder()
-                .email(dto.getEmail())
-                .name(dto.getName())
-                .password(dto.getPassword())    //todo password를 해쉬암호 해서 넣어야 한다
-                .img("default") //프로필 사진 컬럼 옵션 설정이 not null 이기때문에 기본 이미지 Path 를 넣어준다
-
-                .createDate(LocalDateTime.now())    //todo 나중에 시간 자동으로 넣어주게 한다
-                .modifyDate(LocalDateTime.now())
-                .build();
-        userRepository.save(entity);
-        return "Register success";
-    }
-
-    public UserDTO getUserInfo(UserDTO dto){
         try{
-            UserEntity entity = userRepository.findByEmail(dto.getEmail());
-            return UserDTO.builder()
-                    .email(entity.getEmail())
-                    .name(entity.getName())
-                    .img(entity.getImg())
+            if(!dto.getPassword().equals(dto.getPasswordCheck())) return "Password not equal";
+            if(existCheckEmail(dto)) return "Email exists";
+
+            String password = dto.getPassword();
+            String encodedPassword = passwordEncoder.encode(password);
+            dto.setPassword(encodedPassword);
+
+            UserEntity entity = UserEntity.builder()
+                    .email(dto.getEmail())
+                    .password(dto.getPassword())
+                    .name(dto.getName())
+                    .img("default")
+                    .createDate(LocalDateTime.now())
+                    .modifyDate(LocalDateTime.now())
                     .build();
+            userRepository.save(entity);
+
+            return "Register success";
         }
         catch(Exception e){
-            return null;
+            log.error("Register Error: " + e);
+            return "Login failed";
         }
+
+    }
+
+    public UserDTO getUserInfo(@RequestHeader(name = "Authorization") String header){
+
+        return null;
     }
 
     @Transactional

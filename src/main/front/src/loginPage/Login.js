@@ -2,8 +2,9 @@ import React, {useEffect, useState} from 'react';
 
 import './Login.css';
 import icon from '../logo/forest_icon.png'
-import {useNavigate} from "react-router-dom";
+import {redirect, useNavigate} from "react-router-dom";
 import {login} from "../apis/Auth";
+import axios from "axios";
 
 const Login = () => {
 
@@ -19,21 +20,13 @@ const Login = () => {
 
     const loginSubmit = async (e) => {
         e.preventDefault();
-        try {
-            const res = await login({
-                email: email,
-                password: password
-            });
-            if (res.data === "Login failed") {
-                alert("아이디 혹은 비밀번호가 올바르지 않습니다.");
-            }
-            if (res.data === "Login success") {
-                localStorage.setItem("Email", email);
-                navigate("/main");
-            }
-        } catch (err) {
-            console.error(err);
-        }
+        await axios.post(`http://localhost:8080/login?username=${email}&password=${password}`)
+            .then((res) => {
+
+            })
+            .catch((e) =>{
+                alert("로그인 에러!!");
+            })
     };
 
     return (

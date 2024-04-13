@@ -2,7 +2,6 @@ package org.web.application.personalproject.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import org.web.application.personalproject.entity.CategoryEntity;
 import org.web.application.personalproject.entity.UserEntity;
 

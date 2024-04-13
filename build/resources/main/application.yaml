@@ -16,3 +16,6 @@ spring:
     hibernate:
       ddl-auto: update
     generate-ddl: true
+
+app:
+  secret-key: YK8BaUYZ9KkNsgeTjYcXcygHQDvPNkx4wBw6wpUDDxKMaGdRMJKx6e2uG7Nk78ed
