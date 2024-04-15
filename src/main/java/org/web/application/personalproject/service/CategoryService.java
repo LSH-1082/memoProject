@@ -14,6 +14,7 @@ import org.web.application.personalproject.entity.UserEntity;
 import org.web.application.personalproject.repository.CategoryRepository;
 import org.web.application.personalproject.repository.PageRepository;
 import org.web.application.personalproject.repository.UserRepository;
+import org.web.application.personalproject.security.filter.JWTUtil;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -26,10 +27,13 @@ public class CategoryService {
     private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
     private final PageRepository pageRepository;
+    private final JWTUtil jwtUtil;
 
 
-    public List<CategoryDTO> findCategoryByOwner(UserDTO userDTO){
-        UserEntity userEntity = userRepository.findByEmail(userDTO.getEmail());
+    public List<CategoryDTO> findCategoryByJWT(String header){
+        String jwt = header.replace("Bearer ", "");
+        String email = jwtUtil.getUsername(jwt);
+        UserEntity userEntity = userRepository.findByEmail(email);
         List<CategoryEntity> categoryEntityList = categoryRepository.findByOwner(userEntity);
         List<CategoryDTO> categoryDTOList = new ArrayList<>();
 
@@ -44,13 +48,15 @@ public class CategoryService {
         return categoryDTOList;
     }
 
-    public String addCategory(CategoryDTO dto){
-
+    public String addCategory(String header, CategoryDTO dto){
         try{
+            String jwt = header.replace("Bearer ", "");
+            String test = jwtUtil.getUsername(jwt);
+            userRepository.findByEmail(test);
             CategoryEntity entity = CategoryEntity.builder()
                     .categoryName(dto.getCategoryName())
                     .categoryImg("default")
-                    .owner(userRepository.findByEmail(dto.getEmail()))
+                    .owner(userRepository.findByEmail(jwtUtil.getUsername(jwt)))
                     .createDate(LocalDateTime.now())
                     .modifyDate(LocalDateTime.now())
                     .build();

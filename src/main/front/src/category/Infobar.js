@@ -2,6 +2,7 @@ import "./Infobar.css";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import React, {useEffect, useState} from "react";
+import Cookies from "js-cookie";
 
 const Infobar = (props) => {
     const navigate = useNavigate();
@@ -19,23 +20,22 @@ const Infobar = (props) => {
     const logout = () => {
         if (window.confirm("로그아웃 하시겠습니까?")) {
             alert("로그아웃 완료");
-            localStorage.removeItem("userInfo");
-            localStorage.removeItem("Email");
+            Cookies.remove("JWT");
             navigate("/");
         }
     }
 
     const checkDelete = () => {
         if (window.confirm("정말 계정을 삭제하시겠습니까?")) {
-            let email = localStorage.getItem("Email");
-            axios.post('http://localhost:8080/user/delete', {
-                email: email
+            axios.get('http://localhost:8080/user/delete',{
+                headers: {
+                    Authorization: Cookies.get("JWT")
+                }
             })
                 .then((res) => {
                     if (res.data === "Delete success") {
                         alert("계정을 삭제했습니다")
-                        localStorage.removeItem("userInfo");
-                        localStorage.removeItem("Email");
+                        Cookies.remove("JWT");
                         navigate("/");
                     }
                     if (res.data === "Delete failed") {
@@ -50,16 +50,22 @@ const Infobar = (props) => {
             let time = props.category.at(props.mNum).create_date;
             axios.post("http://localhost:8080/category/delete", {
                 create_date: time
+            },{
+                headers: {
+                    Authorization: Cookies.get("JWT")
+                }
             });
         }
         else e.preventDefault();
     }
 
     const addCategory = () => {
-        let email = localStorage.getItem("Email");
         axios.post('http://localhost:8080/category/add', {
-            categoryName: name,
-            email: email
+            categoryName: name
+        }, {
+            headers: {
+                Authorization: Cookies.get("JWT")
+            }
         })
     }
 
@@ -68,6 +74,10 @@ const Infobar = (props) => {
         axios.post("http://localhost:8080/page/add", {
             createDate: time,
             pageName: name
+        }, {
+            headers: {
+                Authorization: Cookies.get("JWT")
+            }
         }).then((res) => {
             console.log(res.data);
         })
@@ -77,6 +87,10 @@ const Infobar = (props) => {
         if(window.confirm("해당 페이지를 삭제하시겠습니까?")){
             axios.post("http://localhost:8080/page/delete", {
                 createDate: time
+            },{
+                headers: {
+                    Authorization: Cookies.get("JWT")
+                }
             }).then(() => {
                 alert("페이지가 삭제되었습니다");
                 window.location.reload();

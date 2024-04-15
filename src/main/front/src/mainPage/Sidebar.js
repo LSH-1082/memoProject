@@ -1,19 +1,29 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const React = require("react");
 const Sidebar = (props) => {
     let page = [];
+
+    useEffect(() => {
+    }, [props.category]);
 
     const sendStatus = (status, num, page) => {
         props.getStatus(status, num, page);
     }
 
 
+
     const categoryButtonClick = (num) => {
         let time = props.category.at(num).create_date;
+        const jwt = Cookies.get("JWT");
         axios.post("http://localhost:8080/page/info", {
             create_date: time
+        }, {
+            headers: {
+                Authorization: jwt
+            }
         }).then((res) => {
             page = res.data;
             sendStatus("category" + num, num, page);

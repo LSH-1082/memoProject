@@ -1,6 +1,7 @@
 import "./WriteArea.css";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const WriteArea = (props) => {
     const [content, setContent] = useState("");
@@ -25,6 +26,10 @@ const WriteArea = (props) => {
                 pageContent: content,
                 createDate: props.pageStatus,
                 pageName: pageName
+            }, {
+                headers: {
+                    Authorization: Cookies.get("JWT")
+                }
             }).then(() => {
                 alert("변경사항이 저장되었습니다");
                 window.location.reload();

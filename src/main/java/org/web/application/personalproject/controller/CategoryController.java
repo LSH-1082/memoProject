@@ -18,14 +18,14 @@ public class CategoryController {
 
     private final CategoryService categoryService;
 
-    @PostMapping("/info")
-    public List<CategoryDTO> categoryInfo(@RequestBody UserDTO dto){
-        return categoryService.findCategoryByOwner(dto);
+    @GetMapping("/info")
+    public List<CategoryDTO> categoryInfo(@RequestHeader("Authorization") String header){
+        return categoryService.findCategoryByJWT(header);
     }
 
     @PostMapping("/add")
-    public String categoryAdd(@RequestBody CategoryDTO dto){
-        return categoryService.addCategory(dto);
+    public String categoryAdd(@RequestHeader("Authorization") String header, @RequestBody CategoryDTO dto){
+        return categoryService.addCategory(header, dto);
     }
 
     @PostMapping("/delete")

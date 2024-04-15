@@ -5,13 +5,13 @@ import Sidebar from "./Sidebar";
 import Infobar from "../category/Infobar";
 import WriteArea from "../writeArea/WriteArea";
 
-import {useNavigate} from "react-router-dom";
+import {redirect, useNavigate} from "react-router-dom";
+import Cookies from "js-cookie";
 
 
 const Main = (props) => {
     const [stat, setStat] = useState("");
     const navigate = useNavigate()
-    const localValue = localStorage.getItem("Email");
     const [userInfo, setUserInfo] = useState([]);
     const [category, setCategory] = useState([]);
     const [mNum, setMNum] = useState(0);
@@ -23,25 +23,25 @@ const Main = (props) => {
 
 
     useEffect(() => {
-        if (localValue === null) navigate("/");
-        axios.post("http://localhost:8080/user/info", {
-            email: localValue
-        }).then(res => {
-            if (res.data === "") {
-                localStorage.removeItem("Email");
-                localStorage.removeItem("userInfo");
-            } else {
-                localStorage.setItem("userInfo", JSON.stringify(res.data));
-                setUserInfo(JSON.parse(localStorage.getItem("userInfo")));
+        axios.get("http://localhost:8080/user/info", {
+            headers: {
+                Authorization: Cookies.get("JWT")
             }
-        })
+        }).then(res => {
+            setUserInfo(res.data);
+        }).catch(e => {
+            alert("토큰이 만료되었습니다! 다시로그인 해주세요!");
+            Cookies.remove("JWT");
+            navigate("/");
+        });
 
-        axios.post("http://localhost:8080/category/info", {
-            email: localStorage.getItem("Email")
+
+        axios.get("http://localhost:8080/category/info", {
+            headers: {
+                Authorization: Cookies.get("JWT")
+            }
         }).then(res => {
             if(res === null){
-                localStorage.removeItem("Email");
-                localStorage.removeItem("userInfo");
                 navigate("/");
             }
             else {
@@ -68,7 +68,8 @@ const Main = (props) => {
     return (
         <>
             <Sidebar category={category} status={stat} getStatus={getStatus}/>
-            <Infobar page={page} mNum={mNum} category={category} userInfo={userInfo} status={stat} getPageStatus={getPageStatus}/>
+            <Infobar page={page} mNum={mNum} category={category} userInfo={userInfo} status={stat}
+                     getPageStatus={getPageStatus}/>
             <WriteArea pageName={pageName} pageStatus={pageStatus} pageContent={pageContent}/>
         </>
     );

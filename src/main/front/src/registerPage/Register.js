@@ -19,7 +19,8 @@ const Register = () => {
         axios.post("http://localhost:8080/user/register", {
             email: email,
             name: name,
-            password: password
+            password: password,
+            passwordCheck: check
         })
             .then((res) => {
             if(res.data === "Already exists email") alert("이미 동일한 이메일의 계정이 존재합니다.");

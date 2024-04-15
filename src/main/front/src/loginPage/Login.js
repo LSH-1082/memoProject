@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import './Login.css';
 import icon from '../logo/forest_icon.png'
 import {redirect, useNavigate} from "react-router-dom";
-import {login} from "../apis/Auth";
+import Cookies from "js-cookie";
 import axios from "axios";
 
 const Login = () => {
@@ -11,21 +11,20 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
-    const localValue = localStorage.getItem("Email");
 
     useEffect(() => {
-        if(localValue !== null) navigate("/main");
-    }, []);
-
+        if(Cookies.get("JWT") != null) navigate("/main");
+    }, [])
 
     const loginSubmit = async (e) => {
         e.preventDefault();
         await axios.post(`http://localhost:8080/login?username=${email}&password=${password}`)
             .then((res) => {
-
+                Cookies.set('JWT', res.headers.get("Authorization"), { expires: 7})
+                navigate("/main");
             })
             .catch((e) =>{
-                alert("로그인 에러!!");
+                alert("이메일 혹은 비밀번호가 올바르지않습니다!");
             })
     };
 

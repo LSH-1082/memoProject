@@ -1,7 +1,7 @@
 package org.web.application.personalproject.security.config;
 
 
-import jakarta.servlet.http.HttpServletRequest;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
 import org.web.application.personalproject.security.filter.JWTFilter;
 import org.web.application.personalproject.security.filter.LoginFilter;
 import org.web.application.personalproject.security.filter.JWTUtil;
@@ -34,6 +33,8 @@ public class SecurityConfiguration {
     private final CustomUserDetailService customUserDetailService;
 
     private final JWTUtil jwtUtil;
+
+    private  final ObjectMapper objectMapper;
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration conf) throws Exception{
@@ -64,10 +65,10 @@ public class SecurityConfiguration {
         http.csrf(AbstractHttpConfigurer::disable);
         http.formLogin(AbstractHttpConfigurer::disable);
         http.httpBasic(AbstractHttpConfigurer::disable);
-        http.authorizeHttpRequests((auth) -> auth
-                .requestMatchers("/login", "/user/register").permitAll()
-                .anyRequest().authenticated()
-        );
+        http.authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/user/register", "/login").permitAll()
+                        .anyRequest().authenticated()
+                );
 
         http.addFilterBefore(new JWTFilter(jwtUtil), LoginFilter.class);
 

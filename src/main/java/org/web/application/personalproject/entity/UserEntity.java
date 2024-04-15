@@ -46,18 +46,4 @@ public class UserEntity {
     public  void addCategory(CategoryEntity categoryEntity){
         categories.add(categoryEntity);
     }
-
-    @OneToMany(mappedBy = "usersIdx", cascade = CascadeType.PERSIST)
-    private List<MessageEntity> messages = new ArrayList<>();
-
-    public  void addMessage(MessageEntity messageEntity){
-        messages.add(messageEntity);
-    }
-
-    @OneToMany(mappedBy = "usersIdx", cascade = CascadeType.PERSIST)
-    private List<ShareEntity> shares = new ArrayList<>();
-
-    public  void addShare(ShareEntity shareEntity) {
-        shares.add(shareEntity);
-    }
 }

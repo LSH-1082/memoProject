@@ -3,6 +3,8 @@ package org.web.application.personalproject.service;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -12,10 +14,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.web.application.personalproject.dto.UserDTO;
 import org.web.application.personalproject.entity.UserEntity;
 import org.web.application.personalproject.repository.UserRepository;
+import org.web.application.personalproject.security.filter.JWTUtil;
 
 import java.time.LocalDateTime;
 
@@ -25,10 +27,10 @@ import java.time.LocalDateTime;
 public class UserService {
 
     private final UserRepository userRepository;
-
     private final PasswordEncoder passwordEncoder;
-
     private final AuthenticationManager authenticationManager;
+
+    private final JWTUtil jwtUtil;
 
 
     public boolean existCheckEmail(UserDTO dto){
@@ -84,15 +86,20 @@ public class UserService {
 
     }
 
-    public UserDTO getUserInfo(@RequestHeader(name = "Authorization") String header){
-
-        return null;
+    public ResponseEntity<?> getUserInfo(String header){
+        String jwt = header.replace("Bearer ", "");
+       UserDTO dto = UserDTO.builder()
+               .email(jwtUtil.getUsername(jwt))
+               .name(jwtUtil.getName(jwt))
+               .build();
+       return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
     @Transactional
-    public String delete(UserDTO dto){
-        if(userRepository.findByEmail(dto.getEmail()) == null) return "Delete failed";
-        if(userRepository.deleteByEmail(dto.getEmail()) != null) return "Delete success";
+    public String delete(String header){
+        String jwt = header.replace("Bearer ", "");
+        if(userRepository.findByEmail(jwtUtil.getUsername(jwt)) == null) return "Delete failed";
+        if(userRepository.deleteByEmail(jwtUtil.getUsername(jwt)) != null) return "Delete success";
         else return "Delete failed";
     }
 }

@@ -1,7 +1,9 @@
 package org.web.application.personalproject.controller;
 
+import io.jsonwebtoken.Jwt;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.web.application.personalproject.dto.UserDTO;
 import org.web.application.personalproject.service.UserService;
@@ -20,12 +22,12 @@ public class UserController {
     }
 
     @GetMapping("/info")
-    public String userInfo(@RequestHeader("Authorization") String header) {
-        return "info";
+    public ResponseEntity<?> userInfo(@RequestHeader("Authorization") String header) {
+        return userService.getUserInfo(header);
     }
 
-    @PostMapping("/delete")
-    public String userDelete(@RequestBody UserDTO dto) {
-        return userService.delete(dto);
+    @GetMapping("/delete")
+    public String userDelete(@RequestHeader("Authorization") String header) {
+        return userService.delete(header);
     }
 }

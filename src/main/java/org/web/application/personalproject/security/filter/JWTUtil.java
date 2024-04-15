@@ -1,5 +1,6 @@
 package org.web.application.personalproject.security.filter;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -12,36 +13,28 @@ import java.util.Date;
 @Component
 public class JWTUtil {
     private SecretKey secretKey;
-    public JWTUtil(@Value("${app.secret-key}") String key){
+
+    public JWTUtil(@Value("${app.secret-key}") String key) {
 
         this.secretKey = new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), Jwts.SIG.HS512.key().build().getAlgorithm());
 
     }
 
-    public String getUsername(String token)
-    {
+    public String getUsername(String token) {
         return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("email", String.class);
     }
 
 
-    public String getName(String token)
-    {
+    public String getName(String token) {
         return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("name", String.class);
-    }
-
-    public Long getUserId(String token)
-    {
-        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("idx", Long.class);
     }
 
 
     public Boolean isExpired(String token) {
-
         return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().getExpiration().before(new Date());
     }
 
-    public String createJwt(String email, String name, Long expiredMs)
-    {
+    public String createJwt(String email, String name, Long expiredMs) {
         return Jwts.builder()
                 .claim("email", email)
                 .claim("name", name)
