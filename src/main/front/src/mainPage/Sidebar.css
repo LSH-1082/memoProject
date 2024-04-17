@@ -4,13 +4,14 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 80px; /* 사이드바의 너비 조절 */
-    height: 100%; /* 화면의 높이를 100%로 설정하여 전체 화면에 사이드바가 나타나도록 함 */
-    background-color: rgb(238, 231, 218); /* 배경색 설정 */
-    color: #fff; /* 텍스트 색상 설정 */
+    width: 80px;
+    height: 100%;
+    background-color: rgb(238, 231, 218);
+    color: #fff;
+    z-index: 1;
 }
 
-.sidebar nav{
+.sidebar nav {
     padding-bottom: 50px;
     display: flex;
     flex-direction: column;
@@ -19,64 +20,36 @@
 }
 
 .sidebar nav ul {
-    list-style-type: none; /* 목록 기호 제거 */
+    list-style-type: none;
     padding: 0;
 }
 
-
-.sidebar nav ul li a {
-    color: #fff; /* 링크 텍스트 색상 설정 */
-    text-decoration: none; /* 링크 밑줄 제거 */
-    display: block; /* 블록 레벨 요소로 설정하여 전체 너비를 차지하도록 함 */
+.sidebar nav li a,
+.profileButton,
+.categoryButton {
+    border: none;
+    background: none;
+    cursor: pointer;
 }
 
-
+.sidebar ul{
+    display: flex;
+    flex-direction: column;
+}
 
 .userImg {
     padding-top: 15px;
 }
 
-.profileButton:hover::after {
-    content: attr(data-tooltip); /* 가상 요소에 툴팁 내용 설정 */
-    position: absolute; /* 절대 위치 지정 */
-    top: 40%; /* 요소의 세로 중앙 위치를 기준으로 설정 */
-    left: 120%; /* 툴팁을 오른쪽으로 배치하고자 하는 경우에는 left가 아닌 right 속성을 사용합니다. */
-    transform: translateY(-50%); /* 세로 중앙 정렬을 위해 Y축으로 이동 */
-    padding: 5px 10px; /* 패딩 설정 */
-    background-color: #333; /* 배경색 지정 */
-    color: #fff; /* 텍스트 색상 지정 */
-    border-radius: 5px; /* 테두리 반경 지정 */
-    font-size: 12px; /* 폰트 크기 지정 */
-    white-space: nowrap; /* 줄 바꿈 방지 */
-}
-
-.profileButton {
-    position: relative; /* 상대적 위치 지정 */
-    margin: 0;
-    padding: 0; /* 버튼의 패딩을 0으로 설정합니다. */
-    border: none; /* 버튼의 테두리를 없앱니다. */
-    background: none; /* 버튼의 배경을 없앱니다. */
-    cursor: pointer; /* 마우스 포인터를 가리키는 커서로 변경합니다. */
-    transition: transform 0.3s ease-in-out;
-}
-
-.profileButton:hover{
-    padding: 0; /* 버튼의 패딩을 0으로 설정합니다. */
-    border: none; /* 버튼의 테두리를 없앱니다. */
-    background: none; /* 버튼의 배경을 없앱니다. */
-    cursor: pointer; /* 마우스 포인터를 가리키는 커서로 변경합니다. */
+.profileButton:hover,
+.categoryButton:hover {
+    padding: 0;
+    background: none;
+    cursor: pointer;
     transform: scale(1.1);
 }
 
-.categoryButton {
-    margin: 0;
-    padding: 0; /* 버튼의 패딩을 0으로 설정합니다. */
-    border: none; /* 버튼의 테두리를 없앱니다. */
-    background: none; /* 버튼의 배경을 없앱니다. */
-    cursor: pointer; /* 마우스 포인터를 가리키는 커서로 변경합니다. */
-}
-
-.categoryAdd{
+.categoryAdd {
     position: fixed;
     display: flex;
     justify-content: center;
@@ -84,21 +57,25 @@
     margin-left: 4px;
 }
 
-.categoryAddButton{
+.categoryAddButton {
     width: 70px;
     height: 60px;
     border-radius: 5px;
-    background: rgba(0, 0, 0, 0.1); /* 버튼의 배경을 없앱니다. */
-    cursor: pointer; /* 마우스 포인터를 가리키는 커서로 변경합니다. */
+    background: rgba(0, 0, 0, 0.1);
+    cursor: pointer;
 }
 
-.categoryItem{
+.categoryItem {
+    display: flex;
     max-height: 78vh;
     overflow-y: auto;
     scrollbar-width: none;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
 }
 
-nav{
+nav {
     display: flex;
 }
 
@@ -108,20 +85,33 @@ img {
 }
 
 .categoryButton {
-    position: relative; /* 상대적 위치 지정 */
+    position: relative;
 }
 
+.profileButton:hover::after,
 .categoryButton:hover::after {
-    content: attr(data-tooltip); /* 가상 요소에 툴팁 내용 설정 */
-    position: fixed; /* 절대 위치 지정 */
-    top: 87%; /* 요소의 세로 중앙 위치를 기준으로 설정 */
-    left: 0px; /* 툴팁을 오른쪽으로 배치하고자 하는 경우에는 left가 아닌 right 속성을 사용합니다. */
-    transform: translateY(-50%); /* 세로 중앙 정렬을 위해 Y축으로 이동 */
-    padding: 5px 10px; /* 패딩 설정 */
-    background-color: #333; /* 배경색 지정 */
-    color: #fff; /* 텍스트 색상 지정 */
-    border-radius: 5px; /* 테두리 반경 지정 */
-    font-size: 12px; /* 폰트 크기 지정 */
-    white-space: nowrap; /* 줄 바꿈 방지 */
+    content: attr(data-tooltip);
+    position: fixed;
+    top: 50%;
+    left: calc(100% + 10px);
+    transform: translateY(-50%);
+    padding: 5px 10px;
+    background-color: #333;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 101;
 }
+
+.profileButton,
+.categoryButton{
+    position: relative;
+    margin: 0;
+    padding: 0;
+    background: none;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
 

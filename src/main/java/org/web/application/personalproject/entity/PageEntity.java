@@ -22,7 +22,7 @@ public class PageEntity {
     @Column(nullable = false)
     private String pageName;
 
-    @Column(nullable = false)
+    @Column(length = 100000, nullable = false)
     private String pageContent;
 
 

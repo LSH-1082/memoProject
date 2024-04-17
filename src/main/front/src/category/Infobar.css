@@ -5,6 +5,7 @@
     height: 100%; /* 화면의 높이를 100%로 설정하여 전체 화면에 사이드바가 나타나도록 함 */
     background-color: rgb(242, 241, 235); /* 배경색 설정 */
     color: #fff; /* 텍스트 색상 설정 */
+    z-index: 100;
 }
 
 .infoName {
@@ -19,6 +20,25 @@
     font-size: 30px;
     color: black;
     padding-top: 10px;
+}
+
+.infoName:hover .categoryDeleteButton{
+    color: #c4c4c4;
+}
+
+.categoryDeleteButton{
+    padding: 5px;
+    margin: 3px;
+    border: none;
+    border-radius: 3px;
+    color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.categoryDeleteButton:hover{
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 .email {
@@ -129,22 +149,6 @@ li{
     padding-bottom: 10px;
 }
 
-.pageButton {
-    cursor: pointer;
-    width: 300px; /* 너비 */
-    height: 30px; /* 높이 */
-    margin-right: 10px;
-    background-color: rgb(136, 171, 142); /* 기본 색상 상속 */
-    border: none;
-    border-radius: 3px;
-    color: white;
-    transition: background-color 0.3s ease;
-}
-
-.pageButton:hover {
-    background-color: rgb(106, 134, 109); /* hover 상태일 때 색상도 상속 */
-}
-
 .pageDiv ul{
     padding-left: 5px;
 }
@@ -152,7 +156,8 @@ li{
 
 .pageDeleteButton {
     border: none;
-    color: red;
+    color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -160,15 +165,62 @@ li{
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 5px;
+    transition: background-color 0.3s ease;
 }
 
 .pageDeleteButton:hover {
-    color: #d32f2f;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.pageLabelDiv{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.pageDeleteButtonDiv{
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+}
+
+.pageLabel {
+    background-color: rgb(136, 171, 142); /* 기본 색상 상속 */
+    border: none;
+    border-radius: 3px;
+    color: white;
+}
+
+.pageButtonDiv:hover{
+    background-color: rgb(106, 134, 109); /* hover 상태일 때 색상도 상속 */
+    margin-right: auto;
+}
+
+.pageButtonDiv:hover .pageLabelDiv{
+    background-color: rgb(106, 134, 109); /* hover 상태일 때 색상도 상속 */
+}
+
+.pageButtonDiv:hover .pageLabel{
+    background-color: rgb(106, 134, 109); /* hover 상태일 때 색상도 상속 */
+}
+
+.pageButtonDiv:hover .pageDeleteButton{
+    color: #adacac;
 }
 
 .pageButtonDiv{
+    cursor: pointer;
+    width: 290px; /* 너비 */
+    height: 30px; /* 높이 */
+    margin-right: 10px;
+    background-color: rgb(136, 171, 142); /* 기본 색상 상속 */
+    border: none;
+    border-radius: 3px;
+    color: white;
     display: flex;
-    justify-content: space-between;
+    align-items: center;
 }
 
 .addPageButton{
@@ -182,14 +234,5 @@ li{
 }
 
 
-
-.categoryDeleteButton{
-    padding: 0;
-    margin: 0;
-    border: none;
-    color: red;
-    background-color: rgba(0, 0, 0, 0);
-    cursor: pointer;
-}
 
 

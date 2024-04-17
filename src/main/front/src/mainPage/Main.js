@@ -48,6 +48,9 @@ const Main = (props) => {
                 setCategory(res.data);
             }
 
+        }).catch((e) => {
+            Cookies.remove("JWT");
+            navigate("/");
         });
     }, []);
 

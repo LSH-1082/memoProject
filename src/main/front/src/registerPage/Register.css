@@ -23,3 +23,54 @@
     border-radius: 3px;
     border: 1px solid #ccc;
 }
+
+.inactiveButton {
+    margin-left: 7%;
+    width: 86%;
+    padding: 10px;
+    background-color: rgb(99, 105, 100);
+    color: #fff;
+    font-size: 15px;
+    border: none;
+    border-radius: 3px;
+    cursor: not-allowed; /* 비활성화된 상태에서는 커서를 변경합니다. */
+}
+.pass{
+    display: flex;
+    flex-direction: row;
+}
+
+.passFalse{
+    color: red;
+    margin-left: 118px;
+}
+
+.emailFalse{
+    color: red;
+    margin-left: 186px;
+}
+
+.checkFalse{
+    color: red;
+    margin-left: 90px;
+}
+
+.emailLabel{
+    display: flex;
+    flex-direction: row;
+}
+
+.nameLabel{
+    display: flex;
+    flex-direction: row;
+}
+
+.check{
+    display: flex;
+    flex-direction: row;
+}
+
+.nameFalse{
+    color: red;
+    margin-left: 175px;
+}

@@ -3,9 +3,9 @@
 }
 
 .pageHeader{
+    padding: 9px;
     display: flex;
     justify-content: space-between;
-    padding: 9px;
     background-color: rgb(242, 241, 235);
 }
 

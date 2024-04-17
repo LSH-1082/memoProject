@@ -1,18 +1,21 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import {useNavigate} from "react-router-dom";
 
 const React = require("react");
 const Sidebar = (props) => {
     let page = [];
 
+    const navigate = useNavigate();
+
     useEffect(() => {
     }, [props.category]);
+
 
     const sendStatus = (status, num, page) => {
         props.getStatus(status, num, page);
     }
-
 
 
     const categoryButtonClick = (num) => {
@@ -27,6 +30,9 @@ const Sidebar = (props) => {
         }).then((res) => {
             page = res.data;
             sendStatus("category" + num, num, page);
+        }).catch((e) =>{
+            Cookies.remove("JWT");
+            navigate("/");
         });
     }
 

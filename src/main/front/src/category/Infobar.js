@@ -55,6 +55,7 @@ const Infobar = (props) => {
                     Authorization: Cookies.get("JWT")
                 }
             });
+            window.location.reload();
         }
         else e.preventDefault();
     }
@@ -108,11 +109,14 @@ const Infobar = (props) => {
         for (let i = 0; i < props.page.length; i++) {
             buttons.push(
                 <li key={i}>
-                    <div className="pageButtonDiv">
-                        <button className="pageButton" onClick={() => {
-                            pageButtonClick(props.page.at(i).pageName, props.page.at(i).pageContent, props.page.at(i).createDate)
-                        }}>{props.page.at(i).pageName}</button>
-                        <button className="pageDeleteButton" onClick={() => {deletePage(props.page.at(i).createDate)}}>X</button>
+                    <div className="pageButtonDiv" onClick={() => {
+                        pageButtonClick(props.page.at(i).pageName, props.page.at(i).pageContent, props.page.at(i).createDate)}}>
+                        <div className="pageLabelDiv">
+                            <label className="pageLabel" >{props.page.at(i).pageName}</label>
+                        </div>
+                        <div className="pageDeleteButtonDiv">
+                            <button className="pageDeleteButton" onClick={() => {deletePage(props.page.at(i).createDate)}}>X</button>
+                        </div>
                     </div>
                 </li>
             );
@@ -155,10 +159,8 @@ const Infobar = (props) => {
             {props.status === "category" + props.mNum ? (
                 <div className="infobar">
                     <div className="infoName">
-                        <label>{props.category.at(props.mNum).categoryName}</label>
-                        <form onSubmit={categoryDelete}>
-                            <button className="categoryDeleteButton" type="submit">X</button>
-                        </form>
+                        <label className="categoryName">{props.category.at(props.mNum).categoryName}</label>
+                        <button className="categoryDeleteButton" onClick={categoryDelete}>X</button>
                     </div>
                     <div className="pageDiv">
                         <ul>

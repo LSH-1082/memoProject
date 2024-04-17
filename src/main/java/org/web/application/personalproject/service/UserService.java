@@ -60,7 +60,6 @@ public class UserService {
 
     public String register(UserDTO dto) {
         try{
-            if(!dto.getPassword().equals(dto.getPasswordCheck())) return "Password not equal";
             if(existCheckEmail(dto)) return "Email exists";
 
             String password = dto.getPassword();
