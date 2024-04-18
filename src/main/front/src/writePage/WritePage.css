@@ -23,6 +23,7 @@
 }
 
 .wArea input {
+    margin-top: 4px;
     background-color: rgba(0, 0, 0, 0);
     font-weight: bold;
     font-size: 15px;
