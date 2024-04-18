@@ -21,7 +21,7 @@ const WritePage = (props) => {
     useEffect(() => {
         setPageName(props.page.pageName);
         setPageContent(props.page.pageContent);
-    }, []);
+    }, [props.page.pageName, props.page.pageContent]);
 
     const changeName = (e) => {
         setPageName(e.target.value);
@@ -41,7 +41,7 @@ const WritePage = (props) => {
             alert("저장되었습니다");
         }).catch(() => {
             alert("토큰이 만료되었습니다. 다시 로그인 해주세요!");
-            Cookies.remove("jwt");
+            Cookies.remove("JWT");
             navigate("/", {replace: true});
         });
     }

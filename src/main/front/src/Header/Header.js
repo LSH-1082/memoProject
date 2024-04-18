@@ -27,9 +27,9 @@ const Header = (props) => {
                         <p className="memoTitle">Memo</p>
                     </div>
                     <div className="headerButtons">
-                        <FontAwesomeIcon className="gridIcon" icon={faGrip} size="2x" data-tooltip="Category List" onClick={goCategory}/>
-                        <FontAwesomeIcon className="lineIcon" icon={faGripLines} size="2x" data-tooltip="Page List" onClick={goPage}/>
-                        <FontAwesomeIcon className="userIcon" icon={faCircleUser} size="2x" data-tooltip="Profile" onClick={profileClick}/>
+                        <FontAwesomeIcon className="gridIcon" icon={faGrip} size="2x" onClick={goCategory}/>
+                        <FontAwesomeIcon className="lineIcon" icon={faGripLines} size="2x" onClick={goPage}/>
+                        <FontAwesomeIcon className="userIcon" icon={faCircleUser} size="2x" onClick={profileClick}/>
                     </div>
                 </div>
                 <hr className="hr"/>

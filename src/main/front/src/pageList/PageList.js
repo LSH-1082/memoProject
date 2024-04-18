@@ -25,7 +25,7 @@ const PageList = (props) => {
            Cookies.remove("JWT");
            navigate("/", {replace: true});
         });
-    }, []);
+    }, [navigate, props.category]);
 
     const pageClick = (num) => {
         props.getPage(page[num]);

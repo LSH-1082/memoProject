@@ -21,10 +21,10 @@ const CategoryList = (props) => {
             setCategory(res.data);
         }).catch(() => {
             alert("토큰이 만료되었습니다. 다시 로그인 해주세요!");
-            Cookies.remove("jwt");
+            Cookies.remove("JWT");
             navigate("/", {replace: true});
         });
-    }, []);
+    }, [navigate]);
 
     const categoryClick = (num) => {
         let date = category[num].create_date;
@@ -53,12 +53,12 @@ const CategoryList = (props) => {
                     setCategory(res.data);
                 }).catch(() => {
                     alert("토큰이 만료되었습니다. 다시 로그인 해주세요!");
-                    Cookies.remove("jwt");
+                    Cookies.remove("JWT");
                     navigate("/", {replace: true});
                 });
             }).catch(() => {
                 alert("토큰이 만료되었습니다. 다시 로그인 해주세요!");
-                Cookies.remove("jwt");
+                Cookies.remove("JWT");
                 navigate("/", {replace: true});
             });
         }
