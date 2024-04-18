@@ -9,6 +9,7 @@ import org.web.application.personalproject.entity.CategoryEntity;
 import org.web.application.personalproject.entity.PageEntity;
 import org.web.application.personalproject.repository.CategoryRepository;
 import org.web.application.personalproject.repository.PageRepository;
+import org.web.application.personalproject.security.filter.JWTUtil;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import java.util.List;
 public class PageService {
     private final CategoryRepository categoryRepository;
     private final PageRepository pageRepository;
+    private final JWTUtil jwtUtil;
 
     public List<PageDTO> getPageInfo(CategoryDTO dto) {
         CategoryEntity categoryEntity = categoryRepository.findByCreateDate(dto.getCreate_date());
@@ -38,8 +40,26 @@ public class PageService {
         return pageDTOList;
     }
 
+    public List<PageDTO> findAllPage(String header){
+        String jwt = header.replace("Bearer ", "");
+        String email = jwtUtil.getUsername(jwt);
+        List<PageEntity> pageEntityList = pageRepository.findAllPage(email);
+
+        List<PageDTO> pageDTOList = new ArrayList<>();
+        for (PageEntity pageEntity : pageEntityList) {
+            PageDTO pageDTO = PageDTO.builder()
+                    .pageName(pageEntity.getPageName())
+                    .pageContent(pageEntity.getPageContent())
+                    .createDate(pageEntity.getCreateDate())
+                    .modifyDate(pageEntity.getModifyDate())
+                    .build();
+            pageDTOList.add(pageDTO);
+        }
+        return pageDTOList;
+    }
+
     public boolean addPage(PageDTO dto) {
-        CategoryEntity categoryEntity = categoryRepository.findByCreateDate(dto.getCreateDate());
+        CategoryEntity categoryEntity = categoryRepository.findByCreateDate(dto.getCreate_date());
         try {
             PageEntity pageEntity = PageEntity.builder()
                     .pageName(dto.getPageName())

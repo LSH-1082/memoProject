@@ -1,0 +1,116 @@
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
+    height: 100%;
+    justify-content: center;
+}
+
+.categoryDisplay {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: #eaebed;
+}
+
+.category {
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    width: 250px;
+    height: 280px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.category:hover {
+    transform: scale(1.02);
+    background-color: #fafafa;
+}
+
+.innerCategory {
+    display: flex;
+    width: 225px;
+    height: 252px;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.categoryNameDiv {
+    display: flex;
+    justify-content: space-between;
+}
+
+.nameButtons {
+    display: flex;
+    flex-direction: row;
+}
+
+.categoryDeleteButton {
+    color: gray;
+    padding: 1px;
+    transition: background-color 0.3s ease;
+    border-radius: 3px;
+}
+
+.categoryDeleteButton:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.categoryWriteButton {
+    color: gray;
+    padding: 1px;
+    transition: background-color 0.3s ease;
+    border-radius: 3px;
+}
+
+.categoryWriteButton:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.categoryName {
+    margin: 0;
+    padding-bottom: 10px;
+    font-weight: bold;
+    font-size: 25px;
+    color: #494949;
+    overflow: hidden; /* 내용이 너무 길 경우 숨깁니다. */
+    text-overflow: ellipsis; /* 생략 부호로 표시합니다. */
+}
+
+.pageName {
+    color: gray;
+}
+
+.addCategory {
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0);
+    width: 250px;
+    height: 280px;
+    border-radius: 10px;
+    border-style: dashed;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.addCategory:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.description {
+    background-color: #e5e5e5;
+    border-radius: 5px;
+    height: 90%;
+}
+
+.description p {
+    padding: 10px;
+    color: gray;
+    height: 100%;
+}

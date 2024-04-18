@@ -1,0 +1,84 @@
+.profile {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.prof {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+}
+
+.profileTitle {
+    margin-bottom: 3px;
+    display: flex;
+    justify-content: end;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.profileItem {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.profileContent {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: end;
+    margin-left: 8px;
+    font-size: 15px;
+}
+
+.icon {
+    margin: 3px;
+    color: #656565;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+.profileButtons{
+    display: flex;
+    justify-content: center;
+    width: 80%;
+}
+
+.pButtons{
+    margin-top: 30px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.pDelete{
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 15px;
+    border: none;
+    color: red;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.pDelete:hover{
+    color: #cc0303;
+}
+
+.logout{
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 10px;
+    border-color: black;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.logout:hover{
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+p {
+    margin: 0;
+}

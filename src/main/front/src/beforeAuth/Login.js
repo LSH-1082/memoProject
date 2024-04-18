@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 import './Login.css';
-import icon from '../logo/forest_icon.png'
-import {redirect, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
 
@@ -21,7 +20,7 @@ const Login = () => {
         await axios.post(`http://localhost:8080/login?username=${email}&password=${password}`)
             .then((res) => {
                 Cookies.set('JWT', res.headers.get("Authorization"), { expires: 7})
-                navigate("/main");
+                navigate("/main", {replace: true});
             })
             .catch((e) =>{
                 alert("이메일 혹은 비밀번호가 올바르지않습니다!");
@@ -30,14 +29,9 @@ const Login = () => {
 
     return (
         <div className="Body">
-            <div className="image">
-                <img src={icon} alt="main_icon"/>
-            </div>
-
             <div className="title">
                 <label>Sign in to your account</label>
             </div>
-
             <form className="login-form" onSubmit={loginSubmit}>
 
                 <label className="email-label" htmlFor="email">Email</label>

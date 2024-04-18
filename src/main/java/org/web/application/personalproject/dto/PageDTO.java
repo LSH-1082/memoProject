@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 public class PageDTO {
     private String pageName;
     private String pageContent;
+    private LocalDateTime create_date;
     private LocalDateTime createDate;
     private LocalDateTime modifyDate;
 }

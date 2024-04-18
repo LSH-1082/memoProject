@@ -3,20 +3,13 @@ body{
 }
 
 .Body {
-    background: rgb(242, 241, 235);
+    background-color: #eaebed;
     font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
-}
-
-.image{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 10px;
 }
 
 .login-form{
@@ -81,29 +74,28 @@ body{
 .password-a {
     margin-right: 4%;
     text-decoration: none; /* 링크의 밑줄 제거 */
-    color: rgb(136, 171, 142); /* 기본 색상 상속 */
+    color: darkgrey;
     transition: color 0.3s ease;
 }
 
 .password-a:hover {
-    color: rgb(106, 134, 109); /* hover 상태일 때 색상도 상속 */
+    color: black;
 }
 
 .submitButton {
     margin-left: 7%;
     width: 86%;
     padding: 10px;
-    background-color: rgb(136, 171, 142);
-    color: #fff;
+    background-color: rgba(0, 0, 0, 0);
+    color: black;
     font-size: 15px;
-    border: none;
-    border-radius: 3px;
+    border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 .submitButton:hover {
-    background-color: rgb(106, 134, 109);
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
 .register{
@@ -121,10 +113,10 @@ body{
     margin-right: 8%;
     margin-left: 50px;
     text-decoration: none; /* 링크의 밑줄 제거 */
-    color: rgb(136, 171, 142); /* 기본 색상 상속 */
+    color: darkgrey;
     transition: color 0.3s ease;
 }
 
 .register a:hover {
-    color: rgb(106, 134, 109); /* hover 상태일 때 색상도 상속 */
+    color: black;
 }

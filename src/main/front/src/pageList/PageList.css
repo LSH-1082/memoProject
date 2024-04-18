@@ -1,0 +1,75 @@
+.pageDisplay {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-color: #eaebed;
+}
+
+.pList {
+    width: 80%;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: black;
+    cursor: pointer;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.pList:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.pageList {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.pageName {
+    display: flex;
+    width: 70%;
+    align-items: center;
+}
+
+.pageName p {
+    width: 60%;
+    font-size: 15px;
+    background-color: rgba(0, 0, 0, 0);
+    white-space: nowrap; /* 텍스트를 한 줄로 유지합니다. */
+    overflow: hidden; /* 내용이 너무 길 경우 숨깁니다. */
+    text-overflow: ellipsis; /* 생략 부호로 표시합니다. */
+}
+
+.pageButtons button {
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 5px;
+    border: none;
+}
+
+.pageButtons button:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.addPage {
+    display: flex;
+    width: 80%;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 15px;
+    margin-bottom: 30px;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 5px;
+    border-style: dashed;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.addPage:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}

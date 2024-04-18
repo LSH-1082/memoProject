@@ -20,6 +20,11 @@ public class PageController {
         return pageService.getPageInfo(dto);
     }
 
+    @GetMapping("/all")
+    public List<PageDTO> getAllPage(@RequestHeader("Authorization") String header){
+        return pageService.findAllPage(header);
+    }
+
     @PostMapping("/add")
     public boolean addPage(@RequestBody PageDTO dto) {
         return pageService.addPage(dto);

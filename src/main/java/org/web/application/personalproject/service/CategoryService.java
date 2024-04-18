@@ -30,7 +30,7 @@ public class CategoryService {
     private final JWTUtil jwtUtil;
 
 
-    public List<CategoryDTO> findCategoryByJWT(String header){
+    public List<CategoryDTO> findCategoryByJWT(String header) {
         String jwt = header.replace("Bearer ", "");
         String email = jwtUtil.getUsername(jwt);
         UserEntity userEntity = userRepository.findByEmail(email);
@@ -41,6 +41,7 @@ public class CategoryService {
             CategoryDTO categoryDTO = new CategoryDTO();
             categoryDTO.setCategoryName(categoryEntity.getCategoryName());
             categoryDTO.setCreate_date(categoryEntity.getCreateDate());
+            categoryDTO.setDescription(categoryEntity.getDescription());
             categoryDTO.setModify_date(categoryEntity.getModifyDate());
 
             categoryDTOList.add(categoryDTO);
@@ -48,8 +49,29 @@ public class CategoryService {
         return categoryDTOList;
     }
 
-    public String addCategory(String header, CategoryDTO dto){
-        try{
+    public CategoryDTO findOneInfo(CategoryDTO dto) {
+        CategoryEntity entity = categoryRepository.findByCreateDate(dto.getCreate_date());
+        return CategoryDTO.builder()
+                .categoryName(entity.getCategoryName())
+                .description(entity.getDescription())
+                .build();
+    }
+
+    public Boolean modifyCategory(CategoryDTO dto) {
+        try {
+            CategoryEntity entity = categoryRepository.findByCreateDate(dto.getCreate_date());
+            entity.setCategoryName(dto.getCategoryName());
+            entity.setDescription(dto.getDescription());
+            entity.setModifyDate(LocalDateTime.now());
+            categoryRepository.save(entity);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public String addCategory(String header, CategoryDTO dto) {
+        try {
             String jwt = header.replace("Bearer ", "");
             String test = jwtUtil.getUsername(jwt);
             userRepository.findByEmail(test);
@@ -57,6 +79,7 @@ public class CategoryService {
                     .categoryName(dto.getCategoryName())
                     .categoryImg("default")
                     .owner(userRepository.findByEmail(jwtUtil.getUsername(jwt)))
+                    .description(dto.getDescription())
                     .createDate(LocalDateTime.now())
                     .modifyDate(LocalDateTime.now())
                     .build();
@@ -71,15 +94,14 @@ public class CategoryService {
                     .build();
             pageRepository.save(pageEntity);
             return "Category add success";
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             log.error(e.toString());
             return "Category add failed";
         }
     }
 
     @Transactional
-    public boolean deleteCategory(CategoryDTO dto){
+    public boolean deleteCategory(CategoryDTO dto) {
         return categoryRepository.deleteByCreateDate(dto.getCreate_date()) > 0;
     }
 }

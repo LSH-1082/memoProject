@@ -1,0 +1,59 @@
+.writeArea{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.wHr {
+    margin-top: 18px;
+    width: 80%;
+}
+
+.write{
+    display: flex;
+    justify-content: center;
+}
+
+.wArea{
+    display: flex;
+    width: 80%;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.wArea input {
+    background-color: rgba(0, 0, 0, 0);
+    font-weight: bold;
+    font-size: 15px;
+    border: none;
+    outline: none;
+    white-space: nowrap; /* 텍스트를 한 줄로 유지합니다. */
+    overflow: hidden; /* 내용이 너무 길 경우 숨깁니다. */
+    text-overflow: ellipsis; /* 생략 부호로 표시합니다. */
+}
+
+.wArea button {
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.wArea button:hover{
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.editor {
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.innerEditor{
+    width: 80%;
+    height: 80vh;
+    border-style: solid;
+    border-radius: 5px;
+}

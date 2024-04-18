@@ -14,6 +14,7 @@ import java.util.List;
 public class CategoryDTO {
     private String email;
     private String categoryName;
+    private String description;
     private LocalDateTime create_date;
     private LocalDateTime modify_date;
     private UserEntity owner;

@@ -28,6 +28,8 @@ public class CategoryEntity {
     @Column(nullable = false)
     private String categoryImg;
 
+    @Column(nullable = false)
+    private String description;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "owner")

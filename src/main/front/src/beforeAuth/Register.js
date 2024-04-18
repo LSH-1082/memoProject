@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 
-import icon from '../logo/forest_icon.png'
 import './Register.css'
 import {useNavigate} from "react-router-dom";
 
@@ -62,10 +61,6 @@ const Register = () => {
 
     return (
         <div className="Body">
-            <div className="image">
-                <img src={icon} alt="main_icon"/>
-            </div>
-
             <div className="title">
                 <label>Create an account</label>
             </div>

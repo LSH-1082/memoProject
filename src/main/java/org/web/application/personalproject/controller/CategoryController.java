@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import org.web.application.personalproject.dto.CategoryDTO;
-import org.web.application.personalproject.dto.UserDTO;
 import org.web.application.personalproject.service.CategoryService;
 
 import java.util.List;
@@ -21,6 +20,16 @@ public class CategoryController {
     @GetMapping("/info")
     public List<CategoryDTO> categoryInfo(@RequestHeader("Authorization") String header){
         return categoryService.findCategoryByJWT(header);
+    }
+
+    @PostMapping("one/info")
+    public CategoryDTO categoryOneInfo(@RequestBody CategoryDTO dto){
+        return categoryService.findOneInfo(dto);
+    }
+
+    @PostMapping("/modify")
+    public boolean categoryModify(@RequestBody CategoryDTO dto){
+        return categoryService.modifyCategory(dto);
     }
 
     @PostMapping("/add")

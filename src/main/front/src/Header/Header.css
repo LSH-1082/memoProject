@@ -1,0 +1,80 @@
+.head{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.header {
+    width: 80%;
+    height: 100px;
+    align-items: center;
+    background-color: #eaebed;
+}
+
+.memoTitle {
+    font-size: 30px;
+    font-family: "Helvetica Neue";
+    color: #464646;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    cursor: default;
+}
+
+.headerButtons {
+    display: flex;
+    align-items: center;
+}
+
+.userIcon {
+    margin: 3px;
+    color: #656565;
+    padding: 3px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.userIcon:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+
+}
+
+.gridIcon {
+    margin: 3px;
+    color: #656565;
+    padding: 3px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.gridIcon:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+
+}
+
+.lineIcon {
+    margin: 3px;
+    color: #656565;
+    padding: 3px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.lineIcon:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.headerItem {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.hr{
+    color: gray;
+    width: 100%;
+
+}
