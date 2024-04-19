@@ -15,10 +15,15 @@
     cursor: pointer;
     padding: 10px;
     margin-bottom: 10px;
+    transition: background-color 0.3s ease;
 }
 
 .pList:hover {
     background-color: rgba(0, 0, 0, 0.2);
+}
+
+.pList:hover .pageName p{
+    color: black;
 }
 
 .pageList {
@@ -40,12 +45,14 @@
     white-space: nowrap; /* 텍스트를 한 줄로 유지합니다. */
     overflow: hidden; /* 내용이 너무 길 경우 숨깁니다. */
     text-overflow: ellipsis; /* 생략 부호로 표시합니다. */
+    transition: color 0.3s ease;
 }
 
 .pageButtons button {
     background-color: rgba(0, 0, 0, 0);
     border-radius: 5px;
     border: none;
+    transition: background-color 0.3s ease;
 }
 
 .pageButtons button:hover {
